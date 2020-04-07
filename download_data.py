@@ -1,6 +1,11 @@
 import requests
+import datetime
+now = datetime.date.today()
+print (now)
 
-dls = "https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-04-03.xlsx"
+
+
+dls = "https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-" +str(now)+".xlsx"
 
 
 
