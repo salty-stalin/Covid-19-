@@ -69,37 +69,51 @@ for j in country_names:
             amp1=flip_cases[max_val]
             cen1=max_val
             sigma1=int(FWHM/2.35482004503)
+            try:
+                popt_gauss, pcov_gauss = scipy.optimize.curve_fit(_1gaussian, x_values, flip_cases, p0=[amp1, cen1, sigma1])
+                perr_gauss = np.sqrt(np.diag(pcov_gauss))
+                
+                x_fitting=np.arange(len(date)+50)
+                fitting_values=_1gaussian(x_fitting,popt_gauss[0],popt_gauss[1],popt_gauss[2])
             
-            popt_gauss, pcov_gauss = scipy.optimize.curve_fit(_1gaussian, x_values, flip_cases, p0=[amp1, cen1, sigma1])
-            perr_gauss = np.sqrt(np.diag(pcov_gauss))
             
-            x_fitting=np.arange(len(date)+50)
-            fitting_values=_1gaussian(x_fitting,popt_gauss[0],popt_gauss[1],popt_gauss[2])
-        
-        
+                
+                print(x_values)
+                
+                print(x_fitting)
+                print(fitting_values)
             
-            print(x_values)
             
-            print(x_fitting)
-            print(fitting_values)
-        
-        
-        
-        
-            fig, ax = plt.subplots()
-            ax.scatter(flip_date, flip_cases,s=2)
-            ax.scatter(flip_date, flip_deaths,s=2 ,c='red')
-            ax.plot(x_fitting,fitting_values)
-            ax.set_title(j)
-            ax.set_xlabel('Date')
-            ax.tick_params(axis='x', which='major', labelsize=8)
-            ax.set_ylabel('Number of cases')
-            ax.xaxis.set_major_locator(plt.MaxNLocator(10))
-            plt.savefig('Country Graphs\\' +j + '.png')
-            gaussian_filename='gaussian_countries.txt'
-            file = open(gaussian_filename,'a') 
-            file.write(j+" " + str(popt_gauss)+"\n")
-            file.write(j+" " + str(perr_gauss)+"\n")
+            
+            
+                fig, ax = plt.subplots()
+                ax.scatter(flip_date, flip_cases,s=2)
+                ax.scatter(flip_date, flip_deaths,s=2 ,c='red')
+                ax.plot(x_fitting,fitting_values)
+                ax.set_title(j)
+                ax.set_xlabel('Date')
+                ax.tick_params(axis='x', which='major', labelsize=8)
+                ax.set_ylabel('Number of cases')
+                ax.xaxis.set_major_locator(plt.MaxNLocator(10))
+                plt.savefig('Country Graphs\\' +j + '.png')
+                gaussian_filename='gaussian_countries.txt'
+                file = open(gaussian_filename,'a') 
+                file.write(j+" " + str(popt_gauss)+"\n")
+                file.write(j+" " + str(perr_gauss)+"\n")
+            except:
+                fig, ax = plt.subplots()
+                ax.scatter(flip_date, flip_cases,s=2)
+                ax.scatter(flip_date, flip_deaths,s=2 ,c='red')
+                ax.set_title(j)
+                ax.set_xlabel('Date')
+                ax.tick_params(axis='x', which='major', labelsize=8)
+                ax.set_ylabel('Number of cases')
+                ax.xaxis.set_major_locator(plt.MaxNLocator(10))
+                plt.savefig('Country Graphs\\'+j + '.png')
+                irregular_filename='gaussian_countries.txt'
+                file = open(irregular_filename,'a') 
+                file.write(j+"\n")
+                    
         else :
             
             def func(x, a, b, c):
