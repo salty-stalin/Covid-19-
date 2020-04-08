@@ -1,5 +1,5 @@
 width = 3
 distance = 10
 height = 200
-exp_grad = -0.1
-exp_grad_std = 0.25
+exp_grad = -0.07
+exp_grad_std = 0.03
