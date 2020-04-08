@@ -8,7 +8,9 @@ import time
 
 read_variables=np.loadtxt('Control_Parameters.txt' ,usecols=(2,))
 
-time.sleep(10)
+a=open("gaussian_countries.txt","w")
+b=open("exponetial_countries.txt","w")
+c=open("irregular_countries.txt","w")
 width1=int(read_variables[0])
 distance1=int(read_variables[1])
 height1=int(read_variables[2])
