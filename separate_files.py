@@ -1,6 +1,9 @@
 import pandas as pd
 from pathlib import Path
+
 df = pd.read_excel(r'COVID-19-geographic-disbtribution-worldwide.xlsx', sheet_name='COVID-19-geographic-disbtributi')
+
+file_path = '//Countries File'
 
 Path(r"Countries File").mkdir(parents=True, exist_ok=True)
 Path(r"Country Graphs").mkdir(parents=True, exist_ok=True)
